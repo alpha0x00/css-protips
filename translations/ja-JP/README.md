@@ -25,6 +25,7 @@ CSSのプロのスキルになるようにアドバイスのリストを紹介�
 
 1. [CSSのリセットを使用します](#use-a-css-reset)
 1. [box-sizingをコンポーネントごとに変更](#inherit-box-sizing)
+1. [すべてのプロパティをリセットする代わりに `unset`を使う](#use-unset-instead-of-resetting-all-properties)
 1. [`:not()` を使用 / ボーダーを削除](#use-not-to-applyunapply-borders-on-navigation)
 1. [`body`に`line-height`を加える](#add-line-height-to-body)
 1. [天地の中央に配置](#vertically-center-anything)
@@ -44,7 +45,7 @@ CSSのプロのスキルになるようにアドバイスのリストを紹介�
 1. [動画の自動再生を隠す](#hide-autoplay-videos-that-arent-muted)
 1. [フレクシブルタイプの`:root`を使用](#use-root-for-flexible-type)
 1. [スマホ向け、フォーム要素のフォントサイズの設定](#set-font-size-on-form-elements-for-a-better-mobile-experience)
-
+1. [Use Pointer Events to Control Mouse Events](#use-ointer-events-to-control-mouse-events)
 
 
 <div id="use-a-css-reset"></div>
@@ -82,13 +83,45 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
 ```
 
 これでプラグインかその他のコンポーネントに `box-sizing` を変更しやすくなります。
+
+<sup>[目次へ戻る](#table-of-contents)</sup>
+
+
+<div id="use-unset-instead-of-resetting-all-properties"></div>
+
+### すべてのプロパティをリセットする代わりに `unset`を使う
+
+要素のプロパティをリセットするときは、個々のプロパティをリセットする必要はありません。
+
+```css
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}
+```
+
+要素のプロパティのすべてを `all`省略形で指定することができます。 値を `unset`に設定すると、要素のプロパティが初期値に変更されます：
+
+```css
+button {
+  all: unset;
+}
+```
+
+**備考:** `all`省略形はIE11ではサポートされていません。現在Edgeでのサポートが検討されています。 `unset`はIE11ではサポートされていません。
 
 <sup>[目次へ戻る](#table-of-contents)</sup>
 
@@ -123,7 +156,7 @@ html {
 }
 ```
 
-もちろん `.nav li + li` また `.nav li:first-child ~ li`,を使用できますが `:not()` が一番わかりやすいコードになります。
+もちろん `.nav li + li`,を使用できますが `:not()` が一番わかりやすいコードになります。
 
 #### [デモ](http://codepen.io/AllThingsSmitty/pen/LkymvO)
 
@@ -154,7 +187,8 @@ body {
 なんでも天地の中央に配置できます！！
 
 ```css
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -560,14 +594,26 @@ textarea {
 <sup>[目次へ戻る](#table-of-contents)</sup>
 
 
+<div id="use-ointer-events-to-control-mouse-events"></div>
+
+### ポインターイベントを使用してマウスイベントを制御する
+
+[Pointer events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events)では、マウスがタッチしている要素とどのように対話するかを指定することができます。 ボタン上のデフォルトポインタイベントを無効にするには、次のようにします。
+
+```css
+.button-disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+```
+
+それは簡単です。
+
+<sup>[目次へ戻る](#table-of-contents)</sup>
+
+
 <div id="support"></div>
 
 ## サポート
 
 現在のChrome, Firefox, Safari, Opera と EdgeのバージョンとIE11.
-
-<div id="references"></div>
-
-## 参考：
-
-[Coliss CSSの便利な小技・テクニックのまとめ -CSS Protips](http://coliss.com/articles/build-websites/operation/css/css-protips-v3.html)

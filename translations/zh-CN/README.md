@@ -22,6 +22,7 @@
 
 1. [使用CSS复位](#使用css复位)
 1. [继承 `box-sizing`](#继承-box-sizing)
+1. [使用`unset`而不是重置所有属性](#使用unset而不是重置所有属性)
 1. [使用 `:not()` 选择器来决定表单是否显示边框](#使用-not-选择器来决定表单是否显示边框)
 1. [为 body 元素添加行高](#为-body-元素添加行高)
 1. [垂直居中任何元素](#垂直居中任何元素)
@@ -41,7 +42,7 @@
 1. [隐藏没有静音、自动播放的影片](#隐藏没有静音自动播放的影片)
 1. [使用选择器 `:root` 来控制字体弹性](#使用选择器root来控制字体弹性)
 1. [为更好的移动体验，为表单元素设置字体大小](#为更好的移动体验为表单元素设置字体大小)
-
+1. [使用指针事件來控制鼠标事件](#使用指针事件來控制鼠标事件)
 
 ### 使用CSS复位
 
@@ -73,12 +74,42 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 ```
 
 如此在插件或其它组件里改变 `box-sizing` 变得简单。
+
+<sup>[回目录](#目录)</sup>
+
+
+### 使用`unset`而不是重置所有属性
+
+重置元素的属性时，不需要重置每个单独的属性：
+
+```css
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}
+```
+
+你可以用`all`简写來指定所有元素的属性。 将该值设置为`unset`会将元素的属性更改为其初始值：
+
+```css
+button {
+  all: unset;
+}
+```
+
+**注意：** 所有速记在IE11中不被支持，目前正在考虑Edge的支持。 IE11不支持`unset`。
 
 <sup>[回目录](#目录)</sup>
 
@@ -111,7 +142,7 @@ html {
 }
 ```
 
-当然，你也可以使用 `.nav li + li` 或者 `.nav li:first-child ~ li` ，但是 `:not()` 更加清晰，具有可读性。
+当然，你也可以使用 `.nav li + li`，但是 `:not()` 更加清晰，具有可读性。
 
 #### [演示](http://codepen.io/AllThingsSmitty/pen/LkymvO)
 
@@ -140,7 +171,8 @@ body {
 不！这绝不是黑魔法，真的可以垂直居中任何元素：
 
 ```css
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -175,7 +207,7 @@ ul > li:not(:last-child)::after {
 
 因最后一项不加逗号，可以使用 `:not()` 伪类。
 
-**注意：**这一技巧对于无障碍，特别是屏幕阅读器而言并不理想。而且复制粘贴并不会带走CSS生成的内容,需要注意。
+**注意：** 这一技巧对于无障碍，特别是屏幕阅读器而言并不理想。而且复制粘贴并不会带走CSS生成的内容,需要注意。
 
 <sup>[回目录](#目录)</sup>
 
@@ -510,6 +542,22 @@ textarea {
 ```
 
 :dancer:
+
+<sup>[回目录](#目录)</sup>
+
+
+### 使用指针事件來控制鼠标事件
+
+[指针事件](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events)允許您指定鼠标如何与其触摸的元素进行交互。 要禁用按钮上的默认指针事件，例如：
+
+```css
+.button-disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+```
+
+就这么简单。
 
 <sup>[回目录](#目录)</sup>
 

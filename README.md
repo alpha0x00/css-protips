@@ -21,6 +21,7 @@ A collection of tips to help take your CSS skills pro.
 
 1. [Use a CSS Reset](#use-a-css-reset)
 1. [Inherit `box-sizing`](#inherit-box-sizing)
+1. [Use `unset` Instead of Resetting All Properties](#use-unset-instead-of-resetting-all-properties)
 1. [Use `:not()` to Apply/Unapply Borders on Navigation](#use-not-to-applyunapply-borders-on-navigation)
 1. [Add `line-height` to `body`](#add-line-height-to-body)
 1. [Vertically-Center Anything](#vertically-center-anything)
@@ -40,6 +41,7 @@ A collection of tips to help take your CSS skills pro.
 1. [Hide Autoplay Videos That Aren't Muted](#hide-autoplay-videos-that-arent-muted)
 1. [Use `:root` for Flexible Type](#use-root-for-flexible-type)
 1. [Set `font-size` on Form Elements for a Better Mobile Experience](#set-font-size-on-form-elements-for-a-better-mobile-experience)
+1. [Use Pointer Events to Control Mouse Events](#use-pointer-events-to-control-mouse-events)
 
 
 ### Use a CSS Reset
@@ -72,12 +74,42 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 ```
 
 This makes it easier to change `box-sizing` in plugins or other components that leverage other behavior.
+
+<sup>[back to table of contents](#table-of-contents)</sup>
+
+
+### Use `unset` Instead of Resetting All Properties
+
+When resetting an element's properties, it's not necessary to reset each individual property:
+
+```css
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}
+```
+
+You can specify all of an element's properties using the `all` shorthand. Setting the value to `unset` changes an element's properties to their initial values:
+
+```css
+button {
+  all: unset;
+}
+```
+
+**Note:** the `all` shorthand isn't supported in IE11 and is currently under consideration for support in Edge. `unset` isn't supported in IE11.
 
 <sup>[back to table of contents](#table-of-contents)</sup>
 
@@ -110,7 +142,7 @@ Instead of putting on the border...
 }
 ```
 
-Sure, you can use `.nav li + li` or even `.nav li:first-child ~ li`, but with `:not()` the intent is very clear and the CSS selector defines the border the way a human would describe it.
+Sure, you can use `.nav li + li`, but with `:not()` the intent is very clear and the CSS selector defines the border the way a human would describe it.
 
 #### [Demo](http://codepen.io/AllThingsSmitty/pen/LkymvO)
 
@@ -136,10 +168,11 @@ This way textual elements can inherit from `body` easily.
 
 ### Vertically-Center Anything
 
-No, it's not black magic, you really can center elements vertically:
+No, it's not black magic, you really can center elements vertically. You can do this with flexbox...
 
 ```css
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -152,6 +185,18 @@ body {
   display: flex;
 }
 ```
+
+...and also with CSS Grid:
+
+```css
+body {
+  display: grid;
+  height: 100vh;
+  margin: 0;
+  place-items: center center;
+}
+```
+
 
 Want to center something else? Vertically, horizontally...anything, anytime, anywhere? CSS-Tricks has [a nice write-up](https://css-tricks.com/centering-css-complete-guide/) on doing all of that.
 
@@ -172,7 +217,7 @@ ul > li:not(:last-child)::after {
 }
 ```
 
-Use the `:not()` pseudo-class so no comma is added to the last item.
+Use the `:not()` pseudo-class and no comma will be added to the last item.
 
 **Note:** This tip may not be ideal for accessibility, specifically screen readers. And copy/paste from the browser doesn't work with CSS-generated content. Proceed with caution.
 
@@ -199,11 +244,9 @@ Or, since you've already learned a little about [using `:not()`](#use-not-to-app
 ```css
 /* select all items except the first 3 and display them */
 li:not(:nth-child(-n+3)) {
-  display: none;
+  display: block;
 }
 ```
-
-Well that was pretty easy.
 
 #### [Demo](http://codepen.io/AllThingsSmitty/pen/WxjKZp)
 
@@ -220,7 +263,7 @@ There's no reason not to use SVG for icons:
 }
 ```
 
-SVG scales well for all resolution types and is supported in all browsers [back to IE9](http://caniuse.com/#search=svg). So ditch your .png, .jpg, or .gif-jif-whatev files.
+SVG scales well for all resolution types and is supported in all browsers [back to IE9](http://caniuse.com/#search=svg). Ditch your .png, .jpg, or .gif-jif-whatev files.
 
 **Note:** If you have SVG icon-only buttons for sighted users and the SVG fails to load, this will help maintain accessibility:
 
@@ -276,7 +319,7 @@ The element expands to the `max-height` value on hover and the slider displays a
 
 ### Equal-Width Table Cells
 
-Tables can be a pain to work with so try using `table-layout: fixed` to keep cells at equal width:
+Tables can be a pain to work with. Try using `table-layout: fixed` to keep cells at equal width:
 
 ```css
 .calendar {
@@ -512,6 +555,22 @@ textarea {
 <sup>[back to table of contents](#table-of-contents)</sup>
 
 
+### Use Pointer Events to Control Mouse Events
+
+[Pointer events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) allow you to specifiy how the mouse interacts with the element it's touching. To disable the default pointer event on a button, for instance:
+
+```css
+.button-disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+```
+
+It's that simple.
+
+<sup>[back to table of contents](#table-of-contents)</sup>
+
+
 ## Support
 
 Current versions of Chrome, Firefox, Safari, Opera, Edge, and IE11.
@@ -521,12 +580,18 @@ Current versions of Chrome, Firefox, Safari, Opera, Edge, and IE11.
 
 ## Translations
 
+* [简体中文](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/zh-CN)
+* [正體中文](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/zh-TW)
+* [Deutsche](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/de-DE)
 * [Español](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/es-ES)
 * [Français](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/fr-FR)
+* [ગુજરાતી](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/gu-IND)
 * [Italiano](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/it-IT)
 * [日本語](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/ja-JP)
+* [한국어](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/ko-KR)
+* [Polskie](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/pl-PL)
 * [Português do Brasil](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/pt-BR)
+* [Português do Europe](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/pt-PT)
 * [Русский](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/ru-RU)
-* [简体中文](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/zh-CN)
 
 <sup>[back to table of contents](#table-of-contents)</sup>

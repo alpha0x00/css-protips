@@ -20,6 +20,7 @@ Une collection de conseils pour aider à prendre vos compétences CSS pro.
 
 1. [Utilisez un Reset CSS](#utilisez-un-reset-css)
 1. [Hériter `box-sizing`](#hériter-box-sizing)
+1. [Utilisez `unset` au lieu de Réinitialiser Toutes les Propriétés](#utilisez-unset-au-lieu-de-réinitialiser-toutes-les-propriétés)
 1. [Utiliser `:not()` postuler / unapply Borders Navigation](#utiliser-not-postuler--unapply-frontières-sur-la-navigation)
 1. [Ajouter `line-height` à `body`](#ajouter-line-height-à-body)
 1. [Verticalement-Center Tout](#verticalement-center-tout)
@@ -39,6 +40,7 @@ Une collection de conseils pour aider à prendre vos compétences CSS pro.
 1. [Masquer les vidéos Autoplay qui ne sont pas Muted](#masquer-les-vidéos-autoplay-qui-ne-sont-pas-muted)
 1. [Utiliser `:root` de type flexible](#utiliser-root-de-type-flexible)
 1. [Réglez `font-size` sur le formulaire éléments pour une expérience mobile mieux](#réglez-font-size-sur-le-formulaire-éléments-pour-une-expérience-mobile-mieux)
+1. [Utiliser les événements de pointeur pour contrôler les événements de la souris](#utiliser-les-événements-de-pointeur-pour-contrôler-les-événements-de-lasouris)
 
 
 ### Utilisez un Reset CSS
@@ -71,13 +73,43 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
 ```
 
 Cela rend plus facile de changer `box-sizing` dans les plugins ou autres composants qui exploitent d'autres comportements.
+
+<sup>[retour à la table des matières](#table-des-matières)</sup>
+
+
+### Utilisez `unset` au lieu de Réinitialiser Toutes les Propriétés
+
+Lors de la réinitialisation des propriétés d'un élément, il n'est pas nécessaire de réinitialiser chaque propriété individuelle:
+
+```css
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}
+```
+
+Vous pouvez spécifier toutes les propriétés d'un élément en utilisant le raccourci `all`. Définir la valeur sur `unset` change les propriétés d'un élément à leurs valeurs initiales:
+
+```css
+button {
+  all: unset;
+}
+```
+
+**Remarque:** le raccourci `all` n'est pas supporté dans IE11 et est actuellement à l'étude pour le support dans Edge. `unset` n'est pas supporté dans IE11.
 
 <sup>[retour à la table des matières](#table-des-matières)</sup>
 
@@ -110,7 +142,7 @@ Au lieu de mettre à la frontière...
 }
 ```
 
-Bien sûr, vous pouvez utiliser `.nav li + li` ou même `.nav li:first-child ~ li`, mais avec `:not()` l'intention est très claire et le sélecteur CSS définit la frontière comme un être humain serait le décrire.
+Bien sûr, vous pouvez utiliser `.nav li + li`, mais avec `:not()` l'intention est très claire et le sélecteur CSS définit la frontière comme un être humain serait le décrire.
 
 #### [Demo](http://codepen.io/AllThingsSmitty/pen/LkymvO)
 
@@ -139,7 +171,8 @@ De cette façon, les éléments textuels peuvent hériter de `body` facilement.
 Non, ce n'est pas de la magie noire, vous ne pouvez vraiment centrer des éléments verticalement:
 
 ```css
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -509,6 +542,23 @@ textarea {
 ```
 
 :dancer:
+
+<sup>[retour à la table des matières](#table-des-matières)</sup>
+
+
+
+### Utiliser les événements de pointeur pour contrôler les événements de la souris
+
+[Événements de pointeur](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) vous permet de spécifier comment la souris interagit avec l'élément qu'elle touche. Pour désactiver l'événement de pointeur par défaut sur un bouton, par exemple:
+
+```css
+.button-disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+```
+
+C'est si simple.
 
 <sup>[retour à la table des matières](#table-des-matières)</sup>
 

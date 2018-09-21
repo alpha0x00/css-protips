@@ -19,26 +19,28 @@ Una colección de consejos para ayudarte a mejorar tus conocimientos profesional
 ## Consejos Profesionales
 
 1. [Utilizar un CSS Reset](#utilizar-un-css-reset)
-2. [Heredar `box-sizing`](#heredar-box-sizing)
-3. [Usar `:not()` para Aplicar o Cancelar la aplicación de bordes en la navegación](#usar-not-para-aplicar-o-cancelar-la-aplicación-de-bordes-en-la-navegación)
-4. [Añadir `line-height` al `body`](#añadir-line-height-al-body)
-5. [Centrar cualquier cosa verticalmente](#centrar-cualquier-cosa-verticalmente)
-6. [Listas separadas por comas](#listas-separadas-por-comas)
-7. [Seleccionar elementos usando `nth-child` negativo](#seleccionar-elementos-usando-nth-child-negativo)
-8. [Utilizar SVG para los íconos](#utilizar-svg-para-los-íconos)
-9. [Utilizar la herramienta de selección "Búho lobotomizado"](#utilizar-la-herramienta-de-selección-búho-lobotomizado)
-10. [Usar `max-height` para Sliders con CSS puro](#usar-max-height-para-sliders-con-css-puro)
-11. [Celdas de tabla de igual ancho](#celdas-de-tabla-de-igual-ancho)
-12. [Deshacerse de hacks para los márgenes en Flexbox](#deshacerse-de-hacks-para-los-márgenes-en-flexbox)
-13. [Utilizar atributos como selectores en enlaces vacíos](#utilizar-atributos-como-selectores-en-enlaces-vacíos)
-14. [Estilizar enlaces por defecto](#estilizar-enlaces-por-defecto)
-15. [Ritmo vertical consistente](#ritmo-vertical-consistente)
-16. [Cajas con proporciones intrínsecas](#cajas-con-proporciones-intrínsecas)
-17. [Estilizar enlaces rotos a imágenes](#estilizar-enlaces-rotos-a-imágenes)
-18. [Usar `rem` para tamaños globales; Usar `em` para tamaños locales](#usar-rem-para-tamaños-globales-usar-em-para-tamaños-locales)
-19. [Esconder videos con reproducción automática que no estén silenciados](#esconder-videos-con-reproducción-automática-que-no-estén-silenciados)
-20. [Utilizar `:root` para una tipografía flexible](#utilizar-root-para-una-tipografía-flexible)
-21. [Definir `font-size` en los elementos de formulario para una mejor experiencia móvil](#definir-font-size-en-los-elementos-de-formulario-para-una-mejor-experiencia-móvil)
+1. [Heredar `box-sizing`](#heredar-box-sizing)
+1. [Utilice `unset` en lugar de restablecer todas las propiedades](#utilice-unset-en-lugar-de-restablecer-todas-las-propiedades)
+1. [Usar `:not()` para Aplicar o Cancelar la aplicación de bordes en la navegación](#usar-not-para-aplicar-o-cancelar-la-aplicación-de-bordes-en-la-navegación)
+1. [Añadir `line-height` al `body`](#añadir-line-height-al-body)
+1. [Centrar cualquier cosa verticalmente](#centrar-cualquier-cosa-verticalmente)
+1. [Listas separadas por comas](#listas-separadas-por-comas)
+1. [Seleccionar elementos usando `nth-child` negativo](#seleccionar-elementos-usando-nth-child-negativo)
+1. [Utilizar SVG para los íconos](#utilizar-svg-para-los-íconos)
+1. [Utilizar la herramienta de selección "Búho lobotomizado"](#utilizar-la-herramienta-de-selección-búho-lobotomizado)
+1. [Usar `max-height` para Sliders con CSS puro](#usar-max-height-para-sliders-con-css-puro)
+1. [Celdas de tabla de igual ancho](#celdas-de-tabla-de-igual-ancho)
+1. [Deshacerse de hacks para los márgenes en Flexbox](#deshacerse-de-hacks-para-los-márgenes-en-flexbox)
+1. [Utilizar atributos como selectores en enlaces vacíos](#utilizar-atributos-como-selectores-en-enlaces-vacíos)
+1. [Estilizar enlaces por defecto](#estilizar-enlaces-por-defecto)
+1. [Ritmo vertical consistente](#ritmo-vertical-consistente)
+1. [Cajas con proporciones intrínsecas](#cajas-con-proporciones-intrínsecas)
+1. [Estilizar enlaces rotos a imágenes](#estilizar-enlaces-rotos-a-imágenes)
+1. [Usar `rem` para tamaños globales; Usar `em` para tamaños locales](#usar-rem-para-tamaños-globales-usar-em-para-tamaños-locales)
+1. [Esconder videos con reproducción automática que no estén silenciados](#esconder-videos-con-reproducción-automática-que-no-estén-silenciados)
+1. [Utilizar `:root` para una tipografía flexible](#utilizar-root-para-una-tipografía-flexible)
+1. [Definir `font-size` en los elementos de formulario para una mejor experiencia móvil](#definir-font-size-en-los-elementos-de-formulario-para-una-mejor-experiencia-móvil)
+1. [Usar eventos de puntero para controlar eventos de mouse](#usar-eventos-de-puntero-para-controlar-eventos-de-mouse)
 
 
 ### Utilizar un CSS Reset
@@ -71,12 +73,42 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 ```
 
 Esto hace que sea más fácil cambiar `box-sizing` en plugins u otros componentes que aprovechan otros comportamientos.
+
+<sup>[volver al índice de contenidos](#tabla-de-contenido)</sup>
+
+
+### Utilice `unset` en lugar de restablecer todas las propiedades
+
+Al restablecer las propiedades de un elemento, no es necesario restablecer cada propiedad individual:
+
+```css
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}
+```
+
+Puede especificar todas las propiedades de un elemento usando la taquigrafía `all`. Establecer el valor a `unset` cambia las propiedades de un elemento a sus valores iniciales:
+
+```css
+button {
+  all: unset;
+}
+```
+
+**Nota:** la taquigrafía `all` no es compatible con IE11 y actualmente está bajo consideración para soporte en Edge. `unset` no es compatible con IE11.
 
 <sup>[volver al índice de contenidos](#tabla-de-contenido)</sup>
 
@@ -109,7 +141,7 @@ En lugar de poner en el borde...
 }
 
 ```
-Claro, se puede usar `li.nav + li` o incluso `.nav li:first-child ~ li`, pero con `:not()` la intención es muy clara y el selector CSS define los bordes de la forma en que un ser humano lo describiría.
+Claro, se puede usar `.nav li + li`, pero con `:not()` la intención es muy clara y el selector CSS define los bordes de la forma en que un ser humano lo describiría.
 
 #### [Demo](http://codepen.io/AllThingsSmitty/pen/LkymvO)
 
@@ -138,7 +170,8 @@ De esta manera los elementos de texto pueden heredarlo fácilmente de `body`.
 No, no es magia negra, realmente puedes centrar elementos verticalmente:
 
 ```css
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -505,6 +538,22 @@ textarea {
 ```
 
 :dancer:
+
+<sup>[volver al índice de contenidos](#tabla-de-contenido)</sup>
+
+
+### Usar eventos de puntero para controlar eventos de mouse
+
+[Eventos del puntero](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) le permiten especificar cómo el mouse interactúa con el elemento que está tocando. Para deshabilitar el evento de puntero predeterminado en un botón, por ejemplo:
+
+```css
+.button-disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+```
+
+Es así de simple.
 
 <sup>[volver al índice de contenidos](#tabla-de-contenido)</sup>
 
